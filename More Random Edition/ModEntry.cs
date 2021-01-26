@@ -57,6 +57,8 @@ namespace Randomizer
 
 		private IModHelper _helper;
 
+		static IGenericModConfigMenuAPI api;
+
 		/// <summary>The mod entry point, called after the mod is first loaded</summary>
 		/// <param name="helper">Provides simplified APIs for writing mods</param>
 		public override void Entry(IModHelper helper)
@@ -73,6 +75,7 @@ namespace Randomizer
 			helper.Content.AssetEditors.Add(this._modAssetEditor);
 
 			this.PreLoadReplacments();
+			helper.Events.GameLoop.GameLaunched += (sender, args) => this.onLaunched();
 			helper.Events.GameLoop.SaveLoaded += (sender, args) => this.CalculateAllReplacements();
 			helper.Events.Display.RenderingActiveMenu += (sender, args) => _modAssetLoader.TryReplaceTitleScreen();
 			helper.Events.GameLoop.ReturnedToTitle += (sender, args) => _modAssetLoader.ReplaceTitleScreenAfterReturning();
@@ -119,6 +122,84 @@ namespace Randomizer
 				}
 			}
 		}
+
+		private void onLaunched()
+		{
+			// Check to see if Generic Mod Config Menu is installed
+			if (!Helper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu"))
+            {
+				Globals.ConsoleTrace("GenericModConfigMenu not present");
+				return;
+            }
+
+			api = Helper.ModRegistry.GetApi<IGenericModConfigMenuAPI>("spacechase0.GenericModConfigMenu");
+			api.RegisterModConfig(ModManifest, () => Globals.Config = new ModConfig(), () => Helper.WriteConfig(Globals.Config));
+			api.RegisterLabel(ModManifest, "Randomization Options", "Toggle on or off the various aspects of the game which can be randomized.");
+
+			RegisterModOptions();
+
+		}
+
+		private void RegisterModOptions()
+        {
+			// Need to clean this up somehow
+			// Maybe a Settings object which has a name, description, and value
+			AddLabel("Bundle Options");
+			AddCheckbox("Community Center Bundles", Globals.Config.Bundles.Randomize, "Generate new bundles for each room which select a random number of items from a themed pool.");
+			AddCheckbox("Show Helpful Tooltips", Globals.Config.Bundles.ShowDescriptionsInBundleTooltips, "When this option is enabled, mouse over the items in a bundle to get a helpful description of where to locate them.");
+
+			AddLabel("Crafting Recipe Options");
+			AddCheckbox("Crafting Recipes", Globals.Config.CraftingRecipies.Randomize, "Create recipes using randomly selected items from a pool. Uses rules for balanced difficulty.");
+			AddCheckbox("Skill Level Requirements", Globals.Config.CraftingRecipies.RandomizeLevels, "Randomize levels at which the recipes are learned. Recipe randomization must be turned on for this to take effect.") ;
+
+			AddLabel("NPC Options");
+			AddCheckbox("Swap NPC Skins", Globals.Config.NPCs.RandomizeSkins, "Switch NPC's skins arounds. Does not change names or schedules.");
+			AddCheckbox("NPC Birthdays", Globals.Config.NPCs.RandomizeBirthdays, "Moves each NPC's birthday to a random day in the year.");
+			AddCheckbox("Individual Item Preferences", Globals.Config.NPCs.RandomizePreferences, "Generates a new set of loved items, hated items, and so on for each NPC.");
+			AddCheckbox("Universal Item Preferences", Globals.Config.NPCs.RandomizeUniversalPreferences, "Generates a new set of universally loved items, universally hated items and so on.");
+
+			AddLabel("Crop Options");
+			AddCheckbox("Crops", Globals.Config.Crops.Randomize, "Randomize crop names, growing schedules, and attributes (trellis, scythe needed, etc.).");
+			AddCheckbox("Use Custom Crop Images",  Globals.Config.Crops.UseCustomImages, "Use custom images for seeds and crops at each growth stage.");
+			AddCheckbox("Fruit Trees", Globals.Config.RandomizeFruitTrees, "Generates Item saplings that grow a random item. Prices are loosely balanced based on the item grown.");
+
+			AddLabel("Fish Options");
+			AddCheckbox("Fish", Globals.Config.Fish.Randomize, "Randomize fish names, difficulty and behaviors, as well as locations, times of days and seasons.");
+			AddCheckbox("Use Custom Fish Images", Globals.Config.Fish.UseCustomImages, "Use custom images for the fish.");
+
+			AddLabel("Monster Options");
+			AddCheckbox("Monster Stats", Globals.Config.Monsters.Randomize, "Randomize monster stats, behaviors, and non-unique item drops.");
+			AddCheckbox("Shuffle Monster Drops", Globals.Config.Monsters.SwapUniqueDrops, "Shuffle unique monster drops between all monsters.");
+
+			AddLabel("Weapon Options");
+			AddCheckbox("Weapons", Globals.Config.Weapons.Randomize, "Randomize weapon stats, types, and drop locations.");
+			AddCheckbox("Use Custom Weapon Images", Globals.Config.Weapons.UseCustomImages, "Use custom images for weapons.");
+			AddCheckbox("Galaxy Sword Name", Globals.Config.Weapons.RandomizeGalaxySwordName, "Disable to have the Galaxy Sword keep its name. There is a hard-coded check to spawn a high level bat on Wilderness Farm at night if the player has a Galaxy Sword in their inventory.");
+
+			AddLabel("Boot Options");
+			AddCheckbox("Boots", Globals.Config.Boots.Randomize, "Randomize boots stats, names, descriptions.");
+			AddCheckbox("Use Custom Boot Images", Globals.Config.Boots.UseCustomImages, "Use custom images for boots.");
+
+			AddLabel("Misc Options");
+			AddCheckbox("Building Costs", Globals.Config.RandomizeBuildingCosts, "Farm buildings that Robin can build for the player choose from a random pool of resources.");
+			AddCheckbox("Animal Skins", Globals.Config.RandomizeAnimalSkins, "You might get a surprise from Marnie.");
+			AddCheckbox("Forageables", Globals.Config.RandomizeForagables, "Forageables for every season and location are now randomly selected. Every forageable appears at least once per year.");
+			AddCheckbox("Intro Text", Globals.Config.RandomizeIntroStory, "Replace portions of the intro cutscene with Mad Libs style text.");
+			AddCheckbox("Quests", Globals.Config.RandomizeQuests, "Randomly select quest givers, required items, and rewards.");
+			AddCheckbox("Music", Globals.Config.RandomizeMusic, "Shuffle most songs and ambience.");
+			AddCheckbox("Rain", Globals.Config.RandomizeRain, "Replace rain with a variant (Skulls/Junimos/Cats and Dogs/etc).");
+
+        }
+
+		private void AddCheckbox(string name, bool config, string desc = "")
+        {
+			api.RegisterSimpleOption(ModManifest, name, desc, () => config, (bool val) => config = val);
+        }
+
+		private void AddLabel(string name, string desc = "")
+        {
+			api.RegisterLabel(ModManifest, name, desc);
+        }
 
 		/// <summary>
 		/// Loads the replacements that can be loaded before a game is selected
