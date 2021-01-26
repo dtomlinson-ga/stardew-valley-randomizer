@@ -134,8 +134,6 @@ namespace Randomizer
 
 			api = Helper.ModRegistry.GetApi<IGenericModConfigMenuAPI>("spacechase0.GenericModConfigMenu");
 			api.RegisterModConfig(ModManifest, () => Globals.Config = new ModConfig(), () => Helper.WriteConfig(Globals.Config));
-			api.RegisterLabel(ModManifest, "Randomization Options", "Toggle on or off the various aspects of the game which can be randomized.");
-
 			RegisterModOptions();
 
 		}
@@ -144,6 +142,10 @@ namespace Randomizer
         {
 			// Need to clean this up somehow
 			// Maybe a Settings object which has a name, description, and value
+			AddCheckbox("Create Spoiler Log", Globals.Config.CreateSpoilerLog, "Create a text file which contains all of the randomized elements when a new farm is created. Highly recommended to leave on.");
+
+			AddLabel("---RANDOMIZATION OPTIONS---", "Toggle on or off the various aspects of the game which can be randomized.");
+
 			AddLabel("Bundle Options");
 			AddCheckbox("Community Center Bundles", Globals.Config.Bundles.Randomize, "Generate new bundles for each room which select a random number of items from a themed pool.");
 			AddCheckbox("Show Helpful Tooltips", Globals.Config.Bundles.ShowDescriptionsInBundleTooltips, "When this option is enabled, mouse over the items in a bundle to get a helpful description of where to locate them.");
