@@ -30,6 +30,7 @@ namespace Randomizer
 		private Dictionary<string, string> _preferenceReplacements = new Dictionary<string, string>();
 		public Dictionary<string, string> MusicReplacements = new Dictionary<string, string>();
 
+
 		/// <summary>
 		/// Whether we're currently ignoring replacing object information
 		/// This is done between day loads to prevent errors with the Special Orders
@@ -61,7 +62,7 @@ namespace Randomizer
 			if (asset.AssetNameEquals("Data/Boots")) { return Globals.Config.Boots.Randomize; }
 			if (asset.AssetNameEquals("Data/Monsters")) { return Globals.Config.Monsters.Randomize; }
 			if (asset.AssetNameEquals("Data/NPCDispositions")) { return Globals.Config.NPCs.RandomizeBirthdays; }
-			if (asset.AssetNameEquals("Data/NPCGiftTastes")) { return Globals.Config.NPCs.RandomizePreferences; }
+			if (asset.AssetNameEquals("Data/NPCGiftTastes")) { return Globals.Config.NPCs.RandomizePreferences || Globals.Config.NPCs.RandomizeUniversalPreferences; }
 
 			return false;
 		}
@@ -234,7 +235,7 @@ namespace Randomizer
 			_preferenceReplacements = PreferenceRandomizer.Randomize();
 
 			_bundleReplacements = BundleRandomizer.Randomize();
-			MusicReplacements = MusicRandomizer.Randomize();
+			MusicRandomizer.Randomize();
 
 			QuestInformation questInfo = QuestRandomizer.Randomize();
 			_questReplacements = questInfo.QuestReplacements;
