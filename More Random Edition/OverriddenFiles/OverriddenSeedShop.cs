@@ -24,102 +24,109 @@ namespace Randomizer
 		public static Dictionary<ISalable, int[]> NewShopStock()
 		{
 			Dictionary<ISalable, int[]> stock = new Dictionary<ISalable, int[]>();
-			addStock(stock, 472, -1, "spring");
-			addStock(stock, 473, -1, "spring");
-			addStock(stock, 474, -1, "spring");
-			addStock(stock, 475, -1, "spring");
-			addStock(stock, 427, -1, "spring");
-			addStock(stock, 477, -1, "spring");
-			addStock(stock, 429, -1, "spring");
+
+			// Spring stock
+			AddStock(stock, (int)ObjectIndexes.ParsnipSeeds, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.BeanStarter, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.CauliflowerSeeds, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.PotatoSeeds, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.TulipBulb, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.KaleSeeds, itemSeason: "spring");
+			AddStock(stock, (int)ObjectIndexes.JazzSeeds, itemSeason: "spring");
 			if (Game1.year > 1)
 			{
-				addStock(stock, 476, -1, "spring");
-				addStock(stock, 273, -1, "spring");
+				AddStock(stock, (int)ObjectIndexes.GarlicSeeds, itemSeason: "spring");
+				AddStock(stock, (int)ObjectIndexes.RiceShoot, itemSeason: "spring");
 			}
-			addStock(stock, 479, -1, "summer");
-			addStock(stock, 480, -1, "summer");
-			addStock(stock, 481, -1, "summer");
-			addStock(stock, 482, -1, "summer");
-			addStock(stock, 483, -1, "summer");
-			addStock(stock, 484, -1, "summer");
-			addStock(stock, 453, -1, "summer");
-			addStock(stock, 455, -1, "summer");
-			addStock(stock, 302, -1, "summer");
-			addStock(stock, 487, -1, "summer");
-			addStock(stock, 431, 100, "summer");
+
+			// Summer stock
+			AddStock(stock, (int)ObjectIndexes.MelonSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.TomatoSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.BlueberrySeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.PepperSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.WheatSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.RadishSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.PoppySeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.SpangleSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.HopsStarter, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.CornSeeds, itemSeason: "summer");
+			AddStock(stock, (int)ObjectIndexes.SunflowerSeeds, buyPrice: 100, itemSeason: "summer");
 			if (Game1.year > 1)
-				addStock(stock, 485, -1, "summer");
-			addStock(stock, 490, -1, "fall");
-			addStock(stock, 487, -1, "fall");
-			addStock(stock, 488, -1, "fall");
-			addStock(stock, 491, -1, "fall");
-			addStock(stock, 492, -1, "fall");
-			addStock(stock, 493, -1, "fall");
-			addStock(stock, 483, -1, "fall");
-			addStock(stock, 431, 100, "fall");
-			addStock(stock, 425, -1, "fall");
-			addStock(stock, 299, -1, "fall");
-			addStock(stock, 301, -1, "fall");
+				AddStock(stock, (int)ObjectIndexes.RedCabbageSeeds, itemSeason: "summer");
+
+			// Fall stock
+			AddStock(stock, (int)ObjectIndexes.PumpkinSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.CornSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.EggplantSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.BokChoySeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.YamSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.CranberrySeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.WheatSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.SunflowerSeeds, buyPrice: 100, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.FairySeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.AmaranthSeeds, itemSeason: "fall");
+			AddStock(stock, (int)ObjectIndexes.GrapeStarter, itemSeason: "fall");
 			if (Game1.year > 1)
-				addStock(stock, 489, -1, "fall");
-			addStock(stock, 297, -1, (string)null);
+				AddStock(stock, (int)ObjectIndexes.ArtichokeSeeds, itemSeason: "fall");
+
+			// Year-round stock
+			AddStock(stock, (int)ObjectIndexes.GrassStarter);
+
+			// If player doesn't have Grass Starter recipe, add it to stock
 			if (!Game1.player.craftingRecipes.ContainsKey("Grass Starter"))
-				stock.Add((ISalable)new StardewValley.Object(297, 1, true, -1, 0), new int[2]
-				{
-				1000,
-				1
-				});
-			addStock(stock, 245, -1, (string)null);
-			addStock(stock, 246, -1, (string)null);
-			addStock(stock, 423, -1, (string)null);
-			addStock(stock, 247, -1, (string)null);
-			addStock(stock, 419, -1, (string)null);
+				stock.Add((ISalable)new StardewValley.Object((int)ObjectIndexes.GrassStarter, initialStack: 1, isRecipe: true), new[] {1000, 1});
+
+			// Cooking stock
+			AddStock(stock, (int)ObjectIndexes.Sugar);
+			AddStock(stock, (int)ObjectIndexes.WheatFlour);
+			AddStock(stock, (int)ObjectIndexes.Rice);
+			AddStock(stock, (int)ObjectIndexes.Oil);
+			AddStock(stock, (int)ObjectIndexes.Vinegar);
+
+			// After 15 days, add basic crop boost items
 			if ((int)Game1.stats.DaysPlayed >= 15)
 			{
-				addStock(stock, 368, 50, (string)null);
-				addStock(stock, 370, 50, (string)null);
-				addStock(stock, 465, 50, (string)null);
+				AddStock(stock, (int)ObjectIndexes.BasicFertilizer, buyPrice: 50);
+				AddStock(stock, (int)ObjectIndexes.BasicRetainingSoil, buyPrice: 50);
+				AddStock(stock, (int)ObjectIndexes.SpeedGro, buyPrice: 50);
 			}
+
+			// After 1 year, add better quality crop boost items
 			if (Game1.year > 1)
 			{
-				addStock(stock, 369, 75, (string)null);
-				addStock(stock, 371, 75, (string)null);
-				addStock(stock, 466, 75, (string)null);
+				AddStock(stock, (int)ObjectIndexes.QualityFertilizer, buyPrice: 75);
+				AddStock(stock, (int)ObjectIndexes.QualityRetainingSoil, buyPrice: 75);
+				AddStock(stock, (int)ObjectIndexes.DeluxeSpeedGro, buyPrice: 75);
 			}
+
+			// Wallpaper stock - generate random wallpaper IDs based on in-game day
 			Random random = new Random((int)Game1.stats.DaysPlayed + (int)Game1.uniqueIDForThisGame / 2);
 			int which = random.Next(112);
 			if (which == 21)
 				which = 36;
-			Wallpaper wallpaper1 = new Wallpaper(which, false);
-			stock.Add((ISalable)wallpaper1, new int[2]
-			{
-				wallpaper1.salePrice(),
-				int.MaxValue
-			});
-			Wallpaper wallpaper2 = new Wallpaper(random.Next(56), true);
-			stock.Add((ISalable)wallpaper2, new int[2]
-			{
-				wallpaper2.salePrice(),
-				int.MaxValue
-			});
-			Furniture furniture = new Furniture(1308, Vector2.Zero);
-			stock.Add((ISalable)furniture, new int[2]
-			{
-				furniture.salePrice(),
-				int.MaxValue
-			});
 
-			// -- Replaced code
-			addStock(stock, (int)ObjectIndexes.CherrySapling, -1);
-			addStock(stock, (int)ObjectIndexes.ApricotSapling, -1);
-			addStock(stock, (int)ObjectIndexes.OrangeSapling, -1);
-			addStock(stock, (int)ObjectIndexes.PeachSapling, -1);
-			addStock(stock, (int)ObjectIndexes.PomegranateSapling, -1);
-			addStock(stock, (int)ObjectIndexes.AppleSapling, -1);
+			Wallpaper wallpaper1 = new Wallpaper(which, false);
+			stock.Add((ISalable)wallpaper1, new[] {wallpaper1.salePrice(), int.MaxValue});
+
+			Wallpaper wallpaper2 = new Wallpaper(random.Next(56), true);
+			stock.Add((ISalable)wallpaper2, new[] {wallpaper2.salePrice(), int.MaxValue});
+
+			// Furniture stock
+			Furniture furniture = new Furniture(1308, Vector2.Zero);
+			stock.Add((ISalable)furniture, new[] {furniture.salePrice(), int.MaxValue});
+
+			// Sapling stock -- begin replaced code
+			AddStock(stock, (int)ObjectIndexes.CherrySapling);
+			AddStock(stock, (int)ObjectIndexes.ApricotSapling);
+			AddStock(stock, (int)ObjectIndexes.OrangeSapling);
+			AddStock(stock, (int)ObjectIndexes.PeachSapling);
+			AddStock(stock, (int)ObjectIndexes.PomegranateSapling);
+			AddStock(stock, (int)ObjectIndexes.AppleSapling);
 			// -- End replaced code
 
+			// Add bouquet to shop if player has high enough heart level with eligible NPC
 			if (Game1.player.hasAFriendWithHeartLevel(8, true))
-				addStock(stock, 458, -1);
+				AddStock(stock, (int)ObjectIndexes.Bouquet);
 
 			// There is also a reselling feature that we're removing for simplicity
 			// We potentially should add this back in at some point
@@ -134,11 +141,12 @@ namespace Randomizer
 		/// <param name="stock"></param>
 		/// <param name="parentSheetIndex"></param>
 		/// <param name="buyPrice"></param>
-		private static void addStock(Dictionary<ISalable, int[]> stock, int parentSheetIndex, int buyPrice = -1, string item_season = null)
+		private static void AddStock(Dictionary<ISalable, int[]> stock, int parentSheetIndex, int buyPrice = -1, string itemSeason = null)
 		{
-			float num1 = 2f;
-			int num2 = buyPrice;
+			float num1 = 2f;		// Price multiplier
+			int num2 = buyPrice;	// Override sale price - use salePrice() if not specified
 			StardewValley.Object @object = new StardewValley.Object(Vector2.Zero, parentSheetIndex, 1);
+
 			if (buyPrice == -1)
 			{
 				num2 = @object.salePrice();
@@ -146,14 +154,20 @@ namespace Randomizer
 			}
 			else if (@object.isSapling())
 				num1 *= Game1.MasterPlayer.difficultyModifier;
-			if (item_season != null && item_season != Game1.currentSeason)
+
+			// If item is not year-round or item is out-of-season
+			if (itemSeason != null && itemSeason != Game1.currentSeason)
 			{
+				// If Pierre isn't yet stocking crops year-round, don't add it to stock
 				if (!Game1.MasterPlayer.hasOrWillReceiveMail("PierreStocklist"))
 					return;
+				// If he is, raise the price on out-of-season goods
 				num1 *= 1.5f;
 			}
-			int num3 = (int)((double)num2 * (double)num1);
-			if (item_season != null)
+
+			int num3 = (int)(num2 * num1);
+
+			if (itemSeason != null)
 			{
 				foreach (KeyValuePair<ISalable, int[]> keyValuePair in stock)
 				{
@@ -171,11 +185,7 @@ namespace Randomizer
 					}
 				}
 			}
-			stock.Add((ISalable)@object, new int[2]
-			{
-		num3,
-		int.MaxValue
-			});
+			stock.Add((ISalable)@object, new[] {num3, int.MaxValue});
 		}
 
 		/// <summary>
