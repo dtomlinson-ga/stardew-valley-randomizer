@@ -13,6 +13,7 @@
 		public NPCsConfig NPCs { get; set; } = new NPCsConfig();
 		public BundleConfig Bundles { get; set; } = new BundleConfig();
 		public MusicConfig Music { get; set; } = new MusicConfig();
+		public ShopsConfig Shops { get; set; } = new ShopsConfig();
 
 		public bool RandomizeForagables { get; set; } = true;
 		public bool AddRandomArtifactItem { get; set; } = true;
@@ -84,6 +85,15 @@
 	{
 		public bool Randomize { get; set; } = true;
 		public bool RandomSongEachTransition { get; set; } = false;
+	}
+
+	public class ShopsConfig
+	{
+		public bool Randomize { get; set; } = true;
+		public bool RandomizePierre { get; set; } = true;
+		public bool RandomizeKrobus { get; set; } = true;
+		public bool RandomizeSandy { get; set; } = true;
+		public bool RandomizeMiscShops { get; set; } = true;
 	}
 }
 

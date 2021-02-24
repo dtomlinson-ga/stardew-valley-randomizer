@@ -21,12 +21,6 @@ namespace Randomizer
 		/// </summary>
 		public static void FixRingSelection(object sender, MenuChangedEventArgs e)
 		{
-			if (!Globals.Config.Bundles.Randomize || !(e.NewMenu is JunimoNoteMenu))
-			{
-				_currentActiveBundleMenu = null;
-				return;
-			}
-
 			_currentActiveBundleMenu = (JunimoNoteMenu)e.NewMenu;
 			_currentActiveBundleMenu.inventory.highlightMethod = HighlightBundleCompatibleItems;
 		}

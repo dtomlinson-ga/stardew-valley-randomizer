@@ -75,13 +75,17 @@ namespace Randomizer
 
 			if (Globals.Config.Bundles.Randomize)
 			{
-				helper.Events.Display.MenuChanged += BundleMenuAdjustments.FixRingSelection;
 				helper.Events.Display.RenderingActiveMenu += (sender, args) => BundleMenuAdjustments.FixRingDeposits();
 
 				if (Globals.Config.Bundles.ShowDescriptionsInBundleTooltips)
 				{
 					helper.Events.Display.RenderedActiveMenu += (sender, args) => BundleMenuAdjustments.AddDescriptionsToBundleTooltips();
 				}
+			}
+
+			if (Globals.Config.Bundles.Randomize || Globals.Config.Shops.RandomizePierre)
+			{
+				helper.Events.Display.MenuChanged += MenuAdjustments.TryAdjustMenu;
 			}
 		}
 

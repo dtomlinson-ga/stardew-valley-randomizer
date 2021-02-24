@@ -48,6 +48,7 @@
     <Compile Include="AssetEditor.cs" />
     <Compile Include="AssetLoader.cs" />
     <Compile Include="BundleMenuAdjustments.cs" />
+    <Compile Include="MenuAdjustments.cs" />
     <Compile Include="NPCSkinRandomizer.cs" />
     <Compile Include="CookingChannel.cs" />
     <Compile Include="CraftingRecipeAdjustments.cs" />
