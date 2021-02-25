@@ -31,14 +31,14 @@ namespace Randomizer
 
 			ImageBuilder.CleanUpReplacementFiles();
 
-			this._modAssetLoader = new AssetLoader(this);
-			this._modAssetEditor = new AssetEditor(this);
-			helper.Content.AssetLoaders.Add(this._modAssetLoader);
-			helper.Content.AssetEditors.Add(this._modAssetEditor);
+			_modAssetLoader = new AssetLoader(this);
+			_modAssetEditor = new AssetEditor(this);
+			helper.Content.AssetLoaders.Add(_modAssetLoader);
+			helper.Content.AssetEditors.Add(_modAssetEditor);
 
-			this.PreLoadReplacments();
-			helper.Events.GameLoop.GameLaunched += (sender, args) => this.TryLoadModConfigMenu();
-			helper.Events.GameLoop.SaveLoaded += (sender, args) => this.CalculateAllReplacements();
+			PreLoadReplacments();
+			helper.Events.GameLoop.GameLaunched += (sender, args) => TryLoadModConfigMenu();
+			helper.Events.GameLoop.SaveLoaded += (sender, args) => CalculateAllReplacements();
 			helper.Events.Display.RenderingActiveMenu += (sender, args) => _modAssetLoader.TryReplaceTitleScreen();
 			helper.Events.GameLoop.ReturnedToTitle += (sender, args) => _modAssetLoader.ReplaceTitleScreenAfterReturning();
 
@@ -120,7 +120,7 @@ namespace Randomizer
 			byte[] seedvar = (new SHA1Managed()).ComputeHash(Encoding.UTF8.GetBytes(Game1.player.farmName.Value));
 			int seed = BitConverter.ToInt32(seedvar, 0);
 
-			this.Monitor.Log($"Seed Set: {seed}");
+			Monitor.Log($"Seed Set: {seed}");
 
 			Globals.RNG = new Random(seed);
 			Globals.SpoilerLog = new SpoilerLogger(Game1.player.farmName.Value);
