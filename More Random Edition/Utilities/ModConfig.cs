@@ -4,7 +4,7 @@
 	{
 		public bool CreateSpoilerLog { get; set; } = true;
 
-		public CraftingRecipesConfig CraftingRecipies { get; set; } = new CraftingRecipesConfig();
+		public CraftingRecipesConfig CraftingRecipes { get; set; } = new CraftingRecipesConfig();
 		public WeaponsConfig Weapons { get; set; } = new WeaponsConfig();
 		public BootsConfig Boots { get; set; } = new BootsConfig();
 		public MonstersConfig Monsters { get; set; } = new MonstersConfig();
@@ -17,13 +17,9 @@
 
 		public bool RandomizeForagables { get; set; } = true;
 		public bool AddRandomArtifactItem { get; set; } = true;
-
 		public bool RandomizeBuildingCosts { get; set; } = true;
-
 		public bool RandomizeFruitTrees { get; set; } = true;
-
 		public bool RandomizeAnimalSkins { get; set; } = true;
-
 		public bool RandomizeIntroStory { get; set; } = true;
 		public bool RandomizeQuests { get; set; } = true;
 		public bool RandomizeRain { get; set; } = true;

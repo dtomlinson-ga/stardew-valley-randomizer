@@ -94,7 +94,11 @@ namespace Randomizer
 		/// <returns />
 		public static bool RNGGetNextBoolean(int percentage)
 		{
-			if (percentage < 0 || percentage > 100) ConsoleWarn("Percentage is invalid (less than 0 or greater than 100)");
+			if (percentage < 0 || percentage > 100)
+			{
+				ConsoleWarn("Percentage is invalid (less than 0 or greater than 100)");
+			}
+
 			return RNG.Next(0, 100) < percentage;
 		}
 
@@ -193,9 +197,13 @@ namespace Randomizer
 
 			word = word.ToLower();
 			if (word.StartsWith("a") || word.StartsWith("e") || word.StartsWith("i") || word.StartsWith("o") || word.StartsWith("u"))
+			{
 				return "an";
+			}
 			else
+			{
 				return "a";
+			}
 		}
 
 		/// <summary>
