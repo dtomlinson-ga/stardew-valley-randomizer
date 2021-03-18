@@ -25,23 +25,45 @@ namespace Randomizer
 			{
 				ShopMenu shopMenu = (ShopMenu)e.NewMenu;
 
-				if (Globals.Config.Shops.RandomizePierre && shopMenu.portraitPerson.Name == "Pierre")
+				switch(shopMenu.portraitPerson.Name)
 				{
-					Array objects = ObjectIndexes.GetValues(typeof(ObjectIndexes));
-					int objIndex = (int)objects.GetValue(Range.GetRandomValue(0, objects.Length));
+					case "Pierre":
+						ShopMenuAdjustments.AdjustPierreShopStock(shopMenu);
+						break;
 
-					StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, objIndex, 1);
-					shopMenu.itemPriceAndStock.Add((ISalable)obj, new int[] {1, 2});
-					shopMenu.forSale.Add((ISalable)obj);
+					case "Marlon":
+						ShopMenuAdjustments.AdjustAdventureShopStock(shopMenu);
+						break;
 
-					if ((int)Game1.stats.DaysPlayed >= 15)
-					{
-						objIndex = ItemList.GetRandomItemAtDifficulty(ObtainingDifficulties.EndgameItem).Id;
-						obj = new StardewValley.Object(Vector2.Zero, objIndex, 1);
+					default:
+						break;
+				}
+			}
+		}
 
-						shopMenu.itemPriceAndStock.Add((ISalable)obj, new int[] { 1, 2 });
-						shopMenu.forSale.Add((ISalable)obj);
-					}
+
+		/// <summary>
+		/// Fixes the item name that you get at the start of the game
+		/// </summary>
+		public static void FixParsnipSeedBox()
+		{
+			GameLocation farmHouse = Game1.locations.Where(x => x.Name == "FarmHouse").First();
+
+			List<StardewValley.Objects.Chest> chestsInRoom =
+				farmHouse.Objects.Values.Where(x =>
+					x.DisplayName == "Chest")
+					.Cast<StardewValley.Objects.Chest>()
+					.Where(x => x.giftbox.Value)
+				.ToList();
+
+			if (chestsInRoom.Count > 0)
+			{
+				string parsnipSeedsName = ItemList.GetItemName((int)ObjectIndexes.ParsnipSeeds);
+				StardewValley.Item itemInChest = chestsInRoom[0].items[0];
+				if (itemInChest.Name == "Parsnip Seeds")
+				{
+					itemInChest.Name = parsnipSeedsName;
+					itemInChest.DisplayName = parsnipSeedsName;
 				}
 			}
 		}

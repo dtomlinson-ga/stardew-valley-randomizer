@@ -1,5 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using StardewValley;
+using StardewValley.Locations;
+using StardewValley.Objects;
+using StardewValley.Tools;
 using StardewValley.Menus;
 using System;
 using System.Collections.Generic;
@@ -7,44 +10,37 @@ using System.Linq;
 
 namespace Randomizer
 {
-	internal class ShopMenuAdjustments
+	class ShopMenuAdjustments
 	{
-		internal static void AdjustPierreShopStock(ShopMenu menu)
+		static readonly int maxValue = int.MaxValue;
+
+		/// <summary>
+		/// Fixes sale price for saplings so that they are based on the randomly generated item they produce.
+		/// </summary>
+		/// <param name="menu">The ShopMenu passed in from the MenuChanged event fired when opening Pierre's shop</param>
+		public static void AdjustPierreShopStock(ShopMenu menu)
 		{
-			// Remove saplings from shop
-			menu.forSale.RemoveAll(x => x.Name.Contains("Sapling"));
-			foreach (var item in menu.itemPriceAndStock.Where(keyValuePair => keyValuePair.Key.Name.Contains("Sapling")).ToList())
+			// Fix sapling prices
+			foreach (KeyValuePair<ISalable, int[]> stockItem in menu.itemPriceAndStock.Where(keyValuePair => keyValuePair.Key.Name.Contains("Sapling")).ToList())
 			{
-				menu.itemPriceAndStock.Remove(item.Key);
+				menu.itemPriceAndStock[stockItem.Key] = new[] { stockItem.Key.salePrice(), maxValue};
 			}
 
-			Dictionary<ISalable, int[]> stock = menu.itemPriceAndStock;
-			List<ISalable> forSale = menu.forSale;
-
-			// Re-add saplings with adjusted prices
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.CherrySapling);
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.ApricotSapling);
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.OrangeSapling);
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.PeachSapling);
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.PomegranateSapling);
-			AddItemToStockAtSalePrice(stock, forSale, (int)ObjectIndexes.AppleSapling);
-
-
 			// Add "Item of the Week"
-			Array objects = Enum.GetValues(typeof(ObjectIndexes));
-			int objIndex = (int)objects.GetValue(Range.GetRandomValue(0, objects.Length));
-			AddItemToStockAtSalePrice(stock, forSale, objIndex);
+			// only if Config.RandomizeMainShops is turned on
+
 		}
 
-		AdjustAdventureShopStock(ShopMenu sh)
-
-		private static void AddItemToStockAtSalePrice(Dictionary<ISalable, int[]> stock, List<ISalable> forSale, int parentSheetIndex)
+		/// <summary>
+		/// Fixes sale prices for randomized gear so that nothing sells for more than it's worth.
+		/// </summary>
+		/// <param name="menu">The ShopMenu passed in from the MenuChanged event fired when opening Marlon's shop.</param>
+		public static void AdjustAdventureShopStock(ShopMenu menu)
 		{
-			StardewValley.Object obj = new StardewValley.Object(Vector2.Zero, parentSheetIndex, 1);
-			int price = obj.salePrice();
-
-			stock.Add(obj, new[] { price, int.MaxValue });
-			forSale.Add(obj);
+			menu.itemPriceAndStock = menu.itemPriceAndStock.ToDictionary(
+						item => item.Key,
+						item => new[] { item.Key.salePrice(), maxValue }
+				);
 		}
 	}
 }

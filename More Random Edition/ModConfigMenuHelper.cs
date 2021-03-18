@@ -26,11 +26,11 @@ namespace Randomizer
 
 			AddLabel("Bundle Options");
 			api.RegisterSimpleOption(ModManifest, "Community Center Bundles", "Generate new bundles for each room which select a random number of items from a themed pool.", () => Globals.Config.Bundles.Randomize, (bool val) => Globals.Config.Bundles.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Show Helpful Tooltips", "When this option is enabled, mouse over the items in a bundle to get a helpful description of where to locate them.", () => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips, (bool val) => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips = val);
+			api.RegisterSimpleOption(ModManifest, "> Show Helpful Tooltips", "When this option is enabled, mouse over the items in a bundle to get a helpful description of where to locate them.", () => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips, (bool val) => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips = val);
 
 			AddLabel("Crafting Recipe Options");
 			api.RegisterSimpleOption(ModManifest, "Crafting Recipes", "Create recipes using randomly selected items from a pool. Uses rules for balanced difficulty.", () => Globals.Config.CraftingRecipies.Randomize, (bool val) => Globals.Config.CraftingRecipies.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Skill Level Requirements", "Randomize levels at which the recipes are learned. Recipe randomization must be turned on for this to take effect.", () => Globals.Config.CraftingRecipies.RandomizeLevels, (bool val) => Globals.Config.CraftingRecipies.RandomizeLevels = val);
+			api.RegisterSimpleOption(ModManifest, "> Skill Level Requirements", "Randomize levels at which the recipes are learned. Recipe randomization must be turned on for this to take effect.", () => Globals.Config.CraftingRecipies.RandomizeLevels, (bool val) => Globals.Config.CraftingRecipies.RandomizeLevels = val);
 
 			AddLabel("NPC Options");
 			api.RegisterSimpleOption(ModManifest, "Swap NPC Skins", "Switch NPC's skins arounds. Does not change names or schedules.", () => Globals.Config.NPCs.RandomizeSkins, (bool val) => Globals.Config.NPCs.RandomizeSkins = val);
@@ -40,12 +40,12 @@ namespace Randomizer
 
 			AddLabel("Crop Options");
 			api.RegisterSimpleOption(ModManifest, "Crops", "Randomize crop names, growing schedules, and attributes (trellis, scythe needed, etc.).", () => Globals.Config.Crops.Randomize, (bool val) => Globals.Config.Crops.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Use Custom Crop Images", "Use custom images for seeds and crops at each growth stage.", () => Globals.Config.Crops.UseCustomImages, (bool val) => Globals.Config.Crops.UseCustomImages = val);
+			api.RegisterSimpleOption(ModManifest, "> Use Custom Crop Images", "Use custom images for seeds and crops at each growth stage.", () => Globals.Config.Crops.UseCustomImages, (bool val) => Globals.Config.Crops.UseCustomImages = val);
 			api.RegisterSimpleOption(ModManifest, "Fruit Trees", "Generates Item saplings that grow a random item. Prices are loosely balanced based on the item grown.", () => Globals.Config.RandomizeFruitTrees, (bool val) => Globals.Config.RandomizeFruitTrees = val);
 
 			AddLabel("Fish Options");
 			api.RegisterSimpleOption(ModManifest, "Fish", "Randomize fish names, difficulty and behaviors, as well as locations, times of days and seasons.", () => Globals.Config.Fish.Randomize, (bool val) => Globals.Config.Fish.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Use Custom Fish Images", "Use custom images for the fish.", () => Globals.Config.Fish.UseCustomImages, (bool val) => Globals.Config.Fish.UseCustomImages = val);
+			api.RegisterSimpleOption(ModManifest, "> Use Custom Fish Images", "Use custom images for the fish.", () => Globals.Config.Fish.UseCustomImages, (bool val) => Globals.Config.Fish.UseCustomImages = val);
 
 			AddLabel("Monster Options");
 			api.RegisterSimpleOption(ModManifest, "Monster Stats", "Randomize monster stats, behaviors, and non-unique item drops.", () => Globals.Config.Monsters.Randomize, (bool val) => Globals.Config.Monsters.Randomize = val);
@@ -53,12 +53,12 @@ namespace Randomizer
 
 			AddLabel("Weapon Options");
 			api.RegisterSimpleOption(ModManifest, "Weapons", "Randomize weapon stats, types, and drop locations.", () => Globals.Config.Weapons.Randomize, (bool val) => Globals.Config.Weapons.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Use Custom Weapon Images", "Use custom images for weapons.", () => Globals.Config.Weapons.UseCustomImages, (bool val) => Globals.Config.Weapons.UseCustomImages = val);
+			api.RegisterSimpleOption(ModManifest, "> Use Custom Weapon Images", "Use custom images for weapons.", () => Globals.Config.Weapons.UseCustomImages, (bool val) => Globals.Config.Weapons.UseCustomImages = val);
 			api.RegisterSimpleOption(ModManifest, "Galaxy Sword Name", "Disable to have the Galaxy Sword keep its name. There is a hard-coded check to spawn a high level bat on Wilderness Farm at night if the player has a Galaxy Sword in their inventory.", () => Globals.Config.Weapons.RandomizeGalaxySwordName, (bool val) => Globals.Config.Weapons.RandomizeGalaxySwordName = val);
 
 			AddLabel("Boot Options");
 			api.RegisterSimpleOption(ModManifest, "Boots", "Randomize boots stats, names, descriptions.", () => Globals.Config.Boots.Randomize, (bool val) => Globals.Config.Boots.Randomize = val);
-			api.RegisterSimpleOption(ModManifest, "Use Custom Boot Images", "Use custom images for boots.", () => Globals.Config.Boots.UseCustomImages, (bool val) => Globals.Config.Boots.UseCustomImages = val);
+			api.RegisterSimpleOption(ModManifest, "> Use Custom Boot Images", "Use custom images for boots.", () => Globals.Config.Boots.UseCustomImages, (bool val) => Globals.Config.Boots.UseCustomImages = val);
 
 			AddLabel("Music Options");
 			api.RegisterSimpleOption(ModManifest, "Music", "Shuffle most songs and ambience.", () => Globals.Config.Music.Randomize, (bool val) => Globals.Config.Music.Randomize = val);

@@ -80,8 +80,6 @@
     <Compile Include="Monsters\MonsterData.cs" />
     <Compile Include="Monsters\MonsterRandomizer.cs" />
     <Compile Include="NameRandomizers\WeaponAndArmorNameRandomizer.cs" />
-    <Compile Include="OverriddenFiles\OverriddenAdventureShop.cs" />
-    <Compile Include="OverriddenFiles\OverriddenSeedShop.cs" />
     <Compile Include="OverriddenFiles\OverriddenSubmarine.cs" />
     <Compile Include="Quests\QuestInformation.cs" />
     <Compile Include="Quests\QuestRandomizer.cs" />
@@ -172,6 +170,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="SecretNotesRandomizer.cs" />
+    <Compile Include="ShopMenuAdjustments.cs" />
     <Compile Include="SpoilerLogger.cs" />
     <Compile Include="StringsAdjustments.cs" />
     <Compile Include="WeaponRandomizer.cs" />

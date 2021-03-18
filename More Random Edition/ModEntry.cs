@@ -47,7 +47,7 @@ namespace Randomizer
 
 			if (Globals.Config.Crops.Randomize)
 			{
-				helper.Events.Multiplayer.PeerContextReceived += (sender, args) => FixParsnipSeedBox();
+				helper.Events.Multiplayer.PeerContextReceived += (sender, args) => MenuAdjustments.FixParsnipSeedBox();
 			}
 
 			if (Globals.Config.Crops.Randomize || Globals.Config.Fish.Randomize)
@@ -94,7 +94,7 @@ namespace Randomizer
 			// Check to see if Generic Mod Config Menu is installed
 			if (!Helper.ModRegistry.IsLoaded("spacechase0.GenericModConfigMenu"))
 			{
-				Globals.ConsoleTrace("GenericModConfigMenu not present");
+				Globals.ConsoleTrace("GenericModConfigMenu not present - skipping mod menu setup");
 				return;
 			}
 
@@ -143,9 +143,7 @@ namespace Randomizer
 			Game1.GenerateBundles(Game1.bundleType, true);
 
 			ChangeDayOneForagables();
-			FixParsnipSeedBox();
-			OverriddenSeedShop.ReplaceShopStockMethod();
-			OverriddenAdventureShop.FixAdventureShopBuyAndSellPrices();
+			MenuAdjustments.FixParsnipSeedBox();
 		}
 
 		/// <summary>
@@ -197,30 +195,6 @@ namespace Randomizer
 			}
 		}
 
-		/// <summary>
-		/// Fixes the item name that you get at the start of the game
-		/// </summary>
-		public void FixParsnipSeedBox()
-		{
-			GameLocation farmHouse = Game1.locations.Where(x => x.Name == "FarmHouse").First();
 
-			List<StardewValley.Objects.Chest> chestsInRoom =
-				farmHouse.Objects.Values.Where(x =>
-					x.DisplayName == "Chest")
-					.Cast<StardewValley.Objects.Chest>()
-					.Where(x => x.giftbox.Value)
-				.ToList();
-
-			if (chestsInRoom.Count > 0)
-			{
-				string parsnipSeedsName = ItemList.GetItemName((int)ObjectIndexes.ParsnipSeeds);
-				StardewValley.Item itemInChest = chestsInRoom[0].items[0];
-				if (itemInChest.Name == "Parsnip Seeds")
-				{
-					itemInChest.Name = parsnipSeedsName;
-					itemInChest.DisplayName = parsnipSeedsName;
-				}
-			}
-		}
 	}
 }
