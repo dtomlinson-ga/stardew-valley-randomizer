@@ -89,11 +89,9 @@
 
 	public class ShopsConfig
 	{
-		public bool Randomize { get; set; } = true;
-		public bool RandomizePierre { get; set; } = true;
-		public bool RandomizeKrobus { get; set; } = true;
-		public bool RandomizeSandy { get; set; } = true;
+		public bool RandomizeMainShops { get; set; } = true;
 		public bool RandomizeMiscShops { get; set; } = true;
+
 	}
 }
 

@@ -48,6 +48,8 @@
     <Compile Include="AssetEditor.cs" />
     <Compile Include="AssetLoader.cs" />
     <Compile Include="BundleMenuAdjustments.cs" />
+    <Compile Include="Enums\BigCraftableIndexes.cs" />
+    <Compile Include="Item\BigCraftable.cs" />
     <Compile Include="MenuAdjustments.cs" />
     <Compile Include="NPCSkinRandomizer.cs" />
     <Compile Include="CookingChannel.cs" />

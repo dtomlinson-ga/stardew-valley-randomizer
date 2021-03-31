@@ -29,7 +29,7 @@ namespace Randomizer
 		/// <summary>
 		/// A shortcut to write warnings to the console
 		/// </summary>
-		/// <param name="input"></param>
+		/// <param name="input">The message to write</param>
 		public static void ConsoleWarn(string input)
 		{
 			ModRef.Monitor.Log(input, LogLevel.Warn);
@@ -38,7 +38,7 @@ namespace Randomizer
 		/// <summary>
 		/// A shortcut to write errors to the console
 		/// </summary>
-		/// <param name="input"></param>
+		/// <param name="input">The message to write</param>
 		public static void ConsoleError(string input)
 		{
 			ModRef.Monitor.Log(input, LogLevel.Error);
@@ -47,7 +47,7 @@ namespace Randomizer
 		/// <summary>
 		/// A shortcut to write to the spoiler log
 		/// </summary>
-		/// <param name="input">The input</param>
+		/// <param name="input">The message to write</param>
 		public static void SpoilerWrite(string input)
 		{
 			SpoilerLog.BufferLine(input);
@@ -123,7 +123,7 @@ namespace Randomizer
 			if (list == null || list.Count == 0)
 			{
 				ConsoleError("Attempted to get a random value out of an empty list!");
-				return default(T);
+				return default;
 			}
 
 			if (useGame1RNG)
@@ -145,7 +145,7 @@ namespace Randomizer
 			if (list == null || list.Count == 0)
 			{
 				ConsoleError("Attempted to get a random value out of an empty list!");
-				return default(T);
+				return default;
 			}
 			int selectedIndex = RNG.Next(list.Count);
 			T selectedValue = list[selectedIndex];

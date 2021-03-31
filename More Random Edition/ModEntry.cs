@@ -83,7 +83,7 @@ namespace Randomizer
 				}
 			}
 
-			if (Globals.Config.Bundles.Randomize || Globals.Config.Shops.RandomizePierre)
+			if (Globals.Config.Bundles.Randomize || Globals.Config.Shops.RandomizeMainShops || Globals.Config.Shops.RandomizeMiscShops)
 			{
 				helper.Events.Display.MenuChanged += MenuAdjustments.TryAdjustMenu;
 			}

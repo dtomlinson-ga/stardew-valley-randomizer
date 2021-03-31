@@ -100,7 +100,7 @@ namespace Randomizer
 		/// </returns>
 		private string GetItemsRequired()
 		{
-			string craftingString = "";
+			string craftingString;
 			switch (Category)
 			{
 				case CraftableCategories.EasyAndNeedMany:
@@ -453,7 +453,7 @@ namespace Randomizer
 		/// <returns />
 		private string GetStringForForagables()
 		{
-			Seasons season = Seasons.Spring;
+			Seasons season;
 			switch (Id)
 			{
 				case (int)ObjectIndexes.SpringSeeds:

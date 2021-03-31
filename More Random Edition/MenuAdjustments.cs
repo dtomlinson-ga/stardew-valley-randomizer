@@ -12,7 +12,6 @@ namespace Randomizer
 {
 	class MenuAdjustments
 	{
-
 		public static void TryAdjustMenu(object sender, MenuChangedEventArgs e)
 		{
 			// Bundle menu - fix ring deposit
@@ -20,23 +19,57 @@ namespace Randomizer
 			{
 				BundleMenuAdjustments.FixRingSelection(sender, e);
 			}
+
 			// Shop menu - inject stock
-			else if (Globals.Config.Shops.Randomize && (e.NewMenu is ShopMenu))
+			else if ((Globals.Config.Shops.RandomizeMainShops || Globals.Config.Shops.RandomizeMiscShops) && (e.NewMenu is ShopMenu menu))
 			{
-				ShopMenu shopMenu = (ShopMenu)e.NewMenu;
 
-				switch(shopMenu.portraitPerson.Name)
+				/* Only set up to work with shops in which the seller has a name (e.g. NOT the traveling cart lady
+				 * It is not ever necessary to repoint a shopStock method. Stock can be carefully removed from shops (see EmptyStock() method), and added or modified at will.
+				 */
+
+				if (menu.portraitPerson != null)
 				{
-					case "Pierre":
-						ShopMenuAdjustments.AdjustPierreShopStock(shopMenu);
-						break;
+					switch (menu.portraitPerson.Name)
+					{
 
-					case "Marlon":
-						ShopMenuAdjustments.AdjustAdventureShopStock(shopMenu);
-						break;
+						/* Balance sapling prices and add a random early-game-obtainable Item of the Day */
+						case "Pierre":
+							ShopMenuAdjustments.AdjustSeedShopStock(menu);
+							break;
 
-					default:
-						break;
+						/* Balance weapon and armor prices
+						 * TODO: Add small chance of random higher-tier weapon appearing at high price
+						 */
+						case "Marlon":
+							ShopMenuAdjustments.AdjustAdventureShopStock(menu);
+							break;
+
+						/* Add clay to stock in case player is having trouble getting enough*/
+						case "Robin":
+							ShopMenuAdjustments.AdjustCarpenterShopStock(menu);
+							break;
+
+						/* Sells a random assort of mid-game-obtainable items */
+						case "Krobus":
+							ShopMenuAdjustments.AdjustSewerShopStock(menu);
+							break;
+
+						/* Sells a random assortment of late-game-obtainable items */
+						case "Sandy":
+							ShopMenuAdjustments.AdjustOasisShopStock(menu);
+							break;
+
+						/* Gus sells random foods each day */
+						case "Gus":
+							ShopMenuAdjustments.AdjustSaloonShopStock(menu);
+							break;
+
+						// add more shops
+
+						default:
+							break;
+					}
 				}
 			}
 		}
