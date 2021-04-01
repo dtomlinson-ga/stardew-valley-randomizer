@@ -1,4 +1,5 @@
 ﻿using StardewModdingAPI;
+using System;
 
 namespace Randomizer
 {
@@ -24,8 +25,8 @@ namespace Randomizer
 			AddCheckBox("> Show Helpful Tooltips", "When this option is enabled, mouse over the items in a bundle to get a helpful description of where to locate them.", () => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips, (bool val) => Globals.Config.Bundles.ShowDescriptionsInBundleTooltips = val);
 
 			AddLabel("Crafting Recipe Options");
-			AddCheckBox("Crafting Recipes", "Create recipes using randomly selected items from a pool. Uses rules for balanced difficulty.", () => Globals.Config.CraftingRecipies.Randomize, (bool val) => Globals.Config.CraftingRecipies.Randomize = val);
-			AddCheckBox("> Skill Level Requirements", "Randomize levels at which the recipes are learned. Recipe randomization must be turned on for this to take effect.", () => Globals.Config.CraftingRecipies.RandomizeLevels, (bool val) => Globals.Config.CraftingRecipies.RandomizeLevels = val);
+			AddCheckBox("Crafting Recipes", "Create recipes using randomly selected items from a pool. Uses rules for balanced difficulty.", () => Globals.Config.CraftingRecipes.Randomize, (bool val) => Globals.Config.CraftingRecipes.Randomize = val);
+			AddCheckBox("> Skill Level Requirements", "Randomize levels at which the recipes are learned. Recipe randomization must be turned on for this to take effect.", () => Globals.Config.CraftingRecipes.RandomizeLevels, (bool val) => Globals.Config.CraftingRecipes.RandomizeLevels = val);
 
 			AddLabel("NPC Options");
 			AddCheckBox("Swap NPC Skins", "Switch NPC's skins arounds. Does not change names or schedules.", () => Globals.Config.NPCs.RandomizeSkins, (bool val) => Globals.Config.NPCs.RandomizeSkins = val);
