@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adjustments\MenuAdjustments.cs" />
+    <Compile Include="Adjustments\ShopMenuAdjustments.cs" />
     <Compile Include="Randomizers\AnimalSkinRandomizer.cs" />
     <Compile Include="Utilities\AssetEditor.cs" />
     <Compile Include="Utilities\AssetLoader.cs" />
